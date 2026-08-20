@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "prebuild": "rm -rf dist build",
+    "prebuild": "rm -rf dist build docs",
     "build": "tsc --noEmit && vite build",
-    "postbuild": "cp -r dist build 2>/dev/null || true",
+    "postbuild": "cp -r dist build 2>/dev/null || true; cp -r dist docs 2>/dev/null || true",
     "deploy": "gh-pages -d dist",
     "preview": "vite preview",
     "clean": "rm -rf dist build server.js",

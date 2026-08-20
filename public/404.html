@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>Redirecting...</title>
+    <meta charset="utf-8" />
+    <title>Sagar Gurung | Systems & Web Portfolio</title>
     <script>
-      // Single Page Apps for GitHub Pages
-      // Redirects 404s back to root path with query parameter for SPA routing
-      var pathSegmentsToKeep = 0;
-      var l = window.location;
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
+      // Intelligent SPA router for GitHub Pages
+      // Handles both user/org pages (username.github.io) and project pages (username.github.io/repo-name)
+      (function() {
+        var l = window.location;
+        var pathname = l.pathname;
+        var hostname = l.hostname;
+        
+        // Detect if hosted under a repository subfolder on github.io
+        var isGitHubPagesRepo = hostname.endsWith('github.io') && pathname.split('/').length > 2 && pathname.split('/')[1] !== '';
+        var repoSegment = isGitHubPagesRepo ? '/' + pathname.split('/')[1] : '';
+        
+        var targetUrl = l.protocol + '//' + hostname + (l.port ? ':' + l.port : '') + repoSegment + '/' + (l.search || '') + (l.hash || '');
+        
+        window.location.replace(targetUrl);
+      })();
     </script>
   </head>
-  <body>
+  <body style="background:#020617;color:#f8fafc;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+    <div style="text-align:center;">
+      <p style="font-size:16px;color:#94a3b8;">Redirecting to Sagar Gurung Portfolio...</p>
+    </div>
   </body>
 </html>
