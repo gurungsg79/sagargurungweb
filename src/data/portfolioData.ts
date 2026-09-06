@@ -5,7 +5,7 @@ export const personalInfo = {
   role: "Electrical Engineering Graduate & Web Systems Specialist",
   tagline: "Bridging Digital Systems, Stochastic Signal Processing & Modern Web Architectures",
   email: "gurung.sg79@gmail.com",
-  phone: "+1 (413) 276-8500",
+  phone: "+1 (347) 722-1248",
   location: "New Jersey, NJ 07666",
   availability: "Open to Full-time Opportunities & Technical Inquiries",
   linkedin: "https://www.linkedin.com/in/gurung-sagar-b09171416/",
