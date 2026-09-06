@@ -7,8 +7,6 @@ import {
   Linkedin, 
   Github, 
   FileText, 
-  GraduationCap,
-  Building2,
   ArrowUp, 
   Heart,
   Globe,
@@ -19,9 +17,10 @@ import { personalInfo } from '../data/portfolioData';
 interface FooterProps {
   darkMode: boolean;
   openCredentials: (tab?: 'resume' | 'transcript-vtu' | 'degree-wneu') => void;
+  openEmailRedirect?: (subject?: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ darkMode, openCredentials }) => {
+export const Footer: React.FC<FooterProps> = ({ darkMode, openCredentials, openEmailRedirect }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -76,15 +75,18 @@ export const Footer: React.FC<FooterProps> = ({ darkMode, openCredentials }) => 
                 <Github className="w-4 h-4" />
               </a>
 
-              <a
-                href={`mailto:${personalInfo.email}`}
-                aria-label="Send Email"
+              <button
+                id="footer-email-btn"
+                type="button"
+                onClick={() => openEmailRedirect ? openEmailRedirect() : (window.location.href = `mailto:${personalInfo.email}`)}
+                aria-label={`Send Email to ${personalInfo.email}`}
+                title={`Email ${personalInfo.email} (Redirect to Machine Email App)`}
                 className={`p-2.5 rounded-xl border transition-all ${
                   darkMode ? 'bg-slate-900 border-slate-800 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40' : 'bg-white border-slate-200 text-slate-700 hover:text-blue-600'
                 }`}
               >
                 <Mail className="w-4 h-4" />
-              </a>
+              </button>
 
               <a
                 href={`tel:${personalInfo.phone.replace(/[^0-9+]/g, '')}`}
@@ -95,6 +97,27 @@ export const Footer: React.FC<FooterProps> = ({ darkMode, openCredentials }) => 
               >
                 <Phone className="w-4 h-4" />
               </a>
+            </div>
+
+            {/* Quick Direct Email Action Button */}
+            <div className="pt-1">
+              <button
+                id="footer-email-redirect-cta"
+                type="button"
+                onClick={() => openEmailRedirect ? openEmailRedirect() : (window.location.href = `mailto:${personalInfo.email}`)}
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-mono transition-all group ${
+                  darkMode 
+                    ? 'bg-slate-900/90 border-slate-800 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 hover:bg-slate-800/80' 
+                    : 'bg-white border-slate-200 text-slate-700 hover:text-blue-700 hover:border-blue-300 hover:bg-blue-50/50 shadow-sm'
+                }`}
+                title="Send email via your machine email app with gurung.sg79@gmail.com"
+              >
+                <Mail className="w-3.5 h-3.5 text-cyan-400 group-hover:scale-110 transition-transform" />
+                <span>{personalInfo.email}</span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                  Mail App
+                </span>
+              </button>
             </div>
           </div>
 
@@ -136,36 +159,15 @@ export const Footer: React.FC<FooterProps> = ({ darkMode, openCredentials }) => 
             </h4>
             <div className="space-y-2">
               <button
+                id="footer-resume-transcripts-btn"
                 onClick={() => openCredentials('resume')}
-                className="w-full flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-xs font-semibold text-slate-200 transition-all"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-xs font-semibold text-slate-200 transition-all group"
               >
                 <span className="flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-cyan-400" />
+                  <FileText className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
                   <span>Resume & Transcripts</span>
                 </span>
-                <span className="text-slate-500">→</span>
-              </button>
-
-              <button
-                onClick={() => openCredentials('transcript-vtu')}
-                className="w-full flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-indigo-500/40 text-xs font-semibold text-slate-200 transition-all"
-              >
-                <span className="flex items-center gap-2">
-                  <GraduationCap className="w-4 h-4 text-indigo-400" />
-                  <span>VTU Transcript (B.E.)</span>
-                </span>
-                <span className="text-slate-500">→</span>
-              </button>
-
-              <button
-                onClick={() => openCredentials('degree-wneu')}
-                className="w-full flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500/40 text-xs font-semibold text-slate-200 transition-all"
-              >
-                <span className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4 text-emerald-400" />
-                  <span>WNEU Master's Record (M.S.)</span>
-                </span>
-                <span className="text-slate-500">→</span>
+                <span className="text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all">→</span>
               </button>
             </div>
           </div>

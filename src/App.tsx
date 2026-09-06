@@ -16,6 +16,7 @@ import { Footer } from './components/Footer';
 import { CredentialsModal } from './components/CredentialsModal';
 import { SearchModal } from './components/SearchModal';
 import { LoadingScreen } from './components/LoadingScreen';
+import { EmailRedirectModal } from './components/EmailRedirectModal';
 import { ThemeMode } from './types';
 
 export default function App() {
@@ -100,6 +101,17 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [requestedSubject, setRequestedSubject] = useState<string>('Full-Time Opportunity');
   const [requestedMessage, setRequestedMessage] = useState<string>('');
+  const [emailRedirectOpen, setEmailRedirectOpen] = useState(false);
+  const [emailRedirectSubject, setEmailRedirectSubject] = useState<string>('Engineering Inquiry / Opportunity - Sagar Gurung');
+
+  const handleOpenEmailRedirect = (subject?: string) => {
+    if (subject) {
+      setEmailRedirectSubject(subject);
+    } else {
+      setEmailRedirectSubject('Engineering Inquiry / Opportunity - Sagar Gurung');
+    }
+    setEmailRedirectOpen(true);
+  };
 
   const handleOpenCredentials = (tab: 'resume' | 'transcript-vtu' | 'degree-wneu' = 'resume') => {
     setCredentialsTab(tab);
@@ -176,6 +188,7 @@ export default function App() {
           darkMode={darkMode}
           requestedSubject={requestedSubject}
           requestedMessage={requestedMessage}
+          openEmailRedirect={handleOpenEmailRedirect}
         />
       </main>
 
@@ -183,6 +196,15 @@ export default function App() {
       <Footer
         darkMode={darkMode}
         openCredentials={handleOpenCredentials}
+        openEmailRedirect={handleOpenEmailRedirect}
+      />
+
+      {/* Native Machine Email Redirect Confirmation Modal */}
+      <EmailRedirectModal
+        isOpen={emailRedirectOpen}
+        onClose={() => setEmailRedirectOpen(false)}
+        darkMode={darkMode}
+        initialSubject={emailRedirectSubject}
       />
 
       {/* Unified Credentials, Transcripts & Owner Documents Portal */}
